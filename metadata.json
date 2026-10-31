@@ -1,0 +1,6 @@
+{
+  "name": "CropVision.ai - Machine Learning Crop Health & Vision Studio",
+  "description": "Next-generation agricultural computer vision and ML model training studio. Real-time crop disease diagnosis, pest detection, Grad-CAM saliency heatmaps, and customizable transfer learning ML model pipeline.",
+  "requestFramePermissions": ["camera", "geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

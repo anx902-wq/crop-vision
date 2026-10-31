@@ -1,0 +1,1024 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AgroCast - Farmer Weather, Crop Advisory & Disease Vision Studio</title>
+    <meta name="description" content="AgroCast: Precision agrometeorological weather forecasting, real-time severe alerts, harvesting optimization, 30-day crop history results, disease identification, and pesticide dosage guides." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/style.css">
+  </head>
+  <body>
+    <!-- App Header -->
+    <header class="app-header">
+      <div class="brand-section">
+        <div class="brand-logo-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title" id="lblAppTitle">
+            AgroCast
+            <span class="brand-tag">AGRI-ML</span>
+          </div>
+          <div class="brand-subtitle" id="lblAppSubtitle">Farmer Weather & Crop Advisory Studio</div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs (Separated into Distinct Pages) -->
+      <nav class="nav-tabs" id="mainNavTabs">
+        <button class="tab-btn active" data-page="weather" id="navTabWeather">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
+          </svg>
+          <span class="i18n-text" data-key="weatherTab">Weather & Forecast</span>
+        </button>
+
+        <button class="tab-btn" data-page="crop-advisory" id="navTabCrop">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12a10 10 0 0 1 10-10z"></path>
+            <path d="M7 12c2.5-3 5-3 7.5-1s5 4 7.5 1"></path>
+          </svg>
+          <span class="i18n-text" data-key="cropTab">Crop & Harvest Advisory</span>
+        </button>
+
+        <button class="tab-btn" data-page="history" id="navTabHistory">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
+          <span class="i18n-text" data-key="historyTab">30-Day Crop Results</span>
+        </button>
+
+        <button class="tab-btn" data-page="ai-search" id="navTabAiSearch">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            <path d="M11 8v6"></path>
+            <path d="M8 11h6"></path>
+          </svg>
+          <span class="i18n-text" data-key="aiSearchTab">AI Picture Search</span>
+        </button>
+
+        <button class="tab-btn" data-page="pesticides" id="navTabPesticides">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <span class="i18n-text" data-key="pesticideTab">Disease & Pesticide Guide</span>
+        </button>
+
+        <button class="tab-btn" data-page="print-report" id="navTabReport">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+          </svg>
+          <span class="i18n-text" data-key="reportTab">Printable Report</span>
+        </button>
+      </nav>
+
+      <!-- Language Selector -->
+      <div class="lang-selector-wrap">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--emerald-400);">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+        </svg>
+        <select id="languageSelector" class="lang-select">
+          <option value="en">English</option>
+          <option value="hi">हिन्दी (Hindi)</option>
+        </select>
+      </div>
+    </header>
+
+    <main class="app-container">
+      <!-- ======================================================== -->
+      <!-- PAGE 1: WEATHER & FORECAST                               -->
+      <!-- ======================================================== -->
+      <section id="page-weather" class="page-view active">
+        <!-- Location Selector & Auto GPS Bar -->
+        <div class="cv-card" style="padding: 1rem 1.25rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+            <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+              <button class="btn-primary" id="btnAutoLocation">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+                </svg>
+                <span class="i18n-text" data-key="autoLocationBtn">Auto-Detect My Location (GPS)</span>
+              </button>
+              <span id="locationStatusText" style="font-size: 0.85rem; color: var(--emerald-400); font-weight: 600;">
+                Station: Uttar Pradesh (26.85°N, 80.95°E - PIN 226001)
+              </span>
+            </div>
+
+            <!-- Manual Indian PIN Code Input & UP Default Location -->
+            <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+              <div style="display: flex; align-items: center; gap: 0.35rem; background: #ffffff; border: 1.5px solid #bbf7d0; border-radius: 8px; padding: 0.25rem 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <span style="font-size: 0.8rem; font-weight: 700; color: #166534;" class="i18n-text" data-key="pincodeLabel">PIN Code:</span>
+                <input 
+                  id="pincodeInput" 
+                  type="text" 
+                  maxlength="6" 
+                  pattern="[0-9]{6}" 
+                  placeholder="226001" 
+                  value="226001"
+                  title="Enter 6-digit Indian Postal PIN code"
+                  class="form-input" 
+                  style="width: 96px; padding: 0.35rem 0.5rem; font-size: 0.85rem; border-radius: 6px; text-align: center; font-weight: 700; color: #0f172a; border: 1px solid #cbd5e1;"
+                />
+                <button id="btnApplyPincode" class="btn-primary" style="padding: 0.4rem 0.75rem; font-size: 0.8rem; border-radius: 6px; white-space: nowrap;">
+                  <span class="i18n-text" data-key="applyPincodeBtn">Apply PIN</span>
+                </button>
+              </div>
+              <button id="btnDefaultUP" class="btn-secondary" style="padding: 0.4rem 0.85rem; font-size: 0.8rem; border-radius: 8px; white-space: nowrap; border: 1.5px solid #16a34a; color: #15803d; background: #f0fdf4; font-weight: 700;" title="Reset to Uttar Pradesh default location">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                  <path d="M3 3v5h5"></path>
+                </svg>
+                <span class="i18n-text" data-key="defaultUpBtn">Default (UP)</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real-Time Severe Weather Alerts -->
+        <div id="severeAlertsBox">
+          <!-- Injected dynamically via JS -->
+        </div>
+
+        <!-- Current Weather & Hourly Timeline -->
+        <div class="cv-card">
+          <div class="card-header">
+            <div class="card-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+              </svg>
+              <span class="i18n-text" data-key="currentWeatherTitle">Live Farm Weather & Atmospheric Conditions</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+              <span style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.72rem; font-weight: 700; color: #166534; background: #dcfce7; padding: 0.2rem 0.6rem; border-radius: 999px; border: 1px solid #86efac;">
+                <span style="width: 7px; height: 7px; border-radius: 50%; background: #16a34a; display: inline-block; box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.4);"></span>
+                <span id="lblLiveStationBadge" class="i18n-text" data-key="liveStationBadge">Live Meteorological Station</span>
+              </span>
+              <span style="font-size: 0.75rem; color: #15803d; font-family: var(--font-mono); font-weight: 600;" id="weatherUpdateTime">Live Telemetry</span>
+            </div>
+          </div>
+
+          <div class="weather-hero-grid">
+            <!-- Left: Hero Big Temp & Status -->
+            <div class="current-weather-main">
+              <div>
+                <div class="temp-large">
+                  <span id="currentTempNum">28</span><span class="temp-unit">°C</span>
+                </div>
+                <div style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin-top: 0.25rem;" id="currentConditionText">
+                  Partly Cloudy
+                </div>
+                <div style="font-size: 0.825rem; color: #15803d; font-weight: 600; margin-top: 0.2rem;">
+                  <span class="i18n-text" data-key="feelsLike">Feels Like</span>: <b id="currentFeelsLike">29°C</b>
+                </div>
+              </div>
+
+              <!-- Animated Weather Graphic -->
+              <div id="weatherIconAnim" style="font-size: 4rem;">
+                ⛅
+              </div>
+            </div>
+
+            <!-- Right: 6-Metric Agricultural Grid -->
+            <div class="weather-stats-grid">
+              <div class="weather-stat-box">
+                <div class="stat-label i18n-text" data-key="humidity">Humidity</div>
+                <div class="stat-value" id="currentHumidity">62%</div>
+              </div>
+              <div class="weather-stat-box">
+                <div class="stat-label i18n-text" data-key="wind">Wind Speed</div>
+                <div class="stat-value" id="currentWind">12 km/h</div>
+              </div>
+              <div class="weather-stat-box">
+                <div class="stat-label i18n-text" data-key="rainProb">Rain Chance</div>
+                <div class="stat-value" id="currentRainProb" style="color: var(--accent-cyan);">20%</div>
+              </div>
+              <div class="weather-stat-box">
+                <div class="stat-label i18n-text" data-key="soilMoisture">Soil Moisture</div>
+                <div class="stat-value" id="currentSoilMoisture" style="color: var(--emerald-400);">48%</div>
+              </div>
+              <div class="weather-stat-box">
+                <div class="stat-label i18n-text" data-key="solarRad">Solar Radiation</div>
+                <div class="stat-value" id="currentSolarRad">680 W/m²</div>
+              </div>
+              <div class="weather-stat-box">
+                <div class="stat-label i18n-text" data-key="sprayWindow">Spray Feasibility</div>
+                <div class="stat-value" id="currentSpraySuitability" style="font-size: 0.85rem; color: var(--emerald-400);">
+                  Suitable
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 24-Hour Hourly Timeline -->
+          <div style="margin-top: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+              <span style="font-size: 0.85rem; font-weight: 700; color: #14532d;" class="i18n-text" data-key="hourlyForecastTitle">
+                24-Hour Hourly Weather & Spraying Forecast
+              </span>
+              <span style="font-size: 0.72rem; color: var(--text-muted);">Scroll horizontally →</span>
+            </div>
+            <div class="hourly-timeline-wrap" id="hourlyTimeline">
+              <!-- Injected dynamically via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 7-Day Precision Weather & Harvesting Schedule -->
+        <div class="cv-card">
+          <div class="card-header">
+            <div class="card-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              <span class="i18n-text" data-key="sevenDayTitle">7-Day Precision Weather & Harvesting Schedule</span>
+            </div>
+            <span style="font-size: 0.75rem; color: var(--emerald-400); font-family: var(--font-mono);">ML Predictive Model</span>
+          </div>
+
+          <div class="seven-day-grid" id="sevenDayGrid">
+            <!-- Injected dynamically via JS -->
+          </div>
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- LOCATION CROP RECOMMENDATIONS & SEASONAL SUITABILITY      -->
+        <!-- ======================================================== -->
+        <div class="cv-card" id="seasonalRecommendationsCard" style="margin-top: 1.5rem;">
+          <div class="card-header" style="flex-wrap: wrap; gap: 0.75rem;">
+            <div>
+              <div class="card-title">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12a10 10 0 0 1 10-10z"></path>
+                  <path d="M12 6v6l4 2"></path>
+                </svg>
+                <span class="i18n-text" data-key="seasonalRecommendationsTitle">Location Crop Suitability & Seasonal Recommendations</span>
+              </div>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;" class="i18n-text" data-key="seasonalRecommendationsSubtitle">
+                Agronomic suitability scores for all crops at this location based on live weather and seasonal growth cycles.
+              </p>
+            </div>
+            <div id="liveStationLocationTag" style="display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; font-weight: 700; color: #166534; background: #f0fdf4; padding: 0.35rem 0.75rem; border-radius: 8px; border: 1px solid #bbf7d0;">
+              📍 <span id="lblStationNameTag">Uttar Pradesh Agri-Belt</span>
+            </div>
+          </div>
+
+          <!-- Current Agricultural Season Banner -->
+          <div id="seasonalBanner" style="background: linear-gradient(135deg, rgba(220, 252, 231, 0.7), rgba(240, 253, 244, 0.9)); border: 1.5px solid #86efac; border-radius: 12px; padding: 1.15rem; margin-bottom: 1.25rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div style="flex: 1; min-width: 260px;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem; flex-wrap: wrap;">
+                <span style="font-size: 1.4rem;">🌾</span>
+                <span style="font-size: 1.05rem; font-weight: 800; color: #14532d;" id="seasonNameDisplay">
+                  Rabi Agricultural Season 2026-2027
+                </span>
+                <span style="font-size: 0.7rem; font-weight: 800; padding: 0.2rem 0.55rem; border-radius: 999px; background: #15803d; color: #ffffff; text-transform: uppercase;" id="seasonStatusTag">
+                  Peak Sowing Window
+                </span>
+              </div>
+              <p style="font-size: 0.825rem; color: #166534; line-height: 1.45; margin: 0;" id="seasonDescDisplay">
+                Mild daytime temperatures (20°C–28°C) and cooler nights (14°C–18°C) with dry atmospheric conditions across Uttar Pradesh create prime conditions for sowing Wheat, Mustard, Potato, Chickpea, and winter vegetables.
+              </p>
+            </div>
+            <div style="text-align: right; background: #ffffff; padding: 0.65rem 1rem; border-radius: 10px; border: 1px solid #bbf7d0; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+              <div style="font-size: 0.7rem; font-weight: 700; color: #15803d; text-transform: uppercase;" class="i18n-text" data-key="currentSeasonLabel">Current Season:</div>
+              <div style="font-size: 0.9rem; font-weight: 800; color: #0f172a;" id="seasonPeriodDisplay">October – April (अक्टूबर - अप्रैल)</div>
+            </div>
+          </div>
+
+          <!-- Recommendations Filter Tabs -->
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem; flex-wrap: wrap;" id="recFilterGroup">
+            <button class="filter-pill-btn active" data-recfilter="ALL">
+              <span class="i18n-text" data-key="filterAllRecommended">All Crops (16)</span>
+            </button>
+            <button class="filter-pill-btn" data-recfilter="Rabi">
+              <span class="i18n-text" data-key="filterInSeasonRabi">In-Season Rabi</span>
+            </button>
+            <button class="filter-pill-btn" data-recfilter="Vegetables">
+              <span class="i18n-text" data-key="filterVegetablesFruits">Vegetables & Fruits</span>
+            </button>
+            <button class="filter-pill-btn" data-recfilter="Cash">
+              <span class="i18n-text" data-key="filterCashGrains">Cash Crops & Pulses</span>
+            </button>
+          </div>
+
+          <!-- Crop Recommendations Dynamic Grid -->
+          <div id="cropRecommendationsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 1rem;">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- PAGE 2: CROP & HARVEST ADVISORY                          -->
+      <!-- ======================================================== -->
+      <section id="page-crop-advisory" class="page-view">
+        <div class="crop-advisory-grid">
+          <!-- Left: Crop Selection & Growth Stage -->
+          <div class="cv-card">
+            <div class="card-header">
+              <div class="card-title">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12a10 10 0 0 1 10-10z"></path>
+                </svg>
+                <span class="i18n-text" data-key="cropSelectTitle">Select Crop & Growth Stage</span>
+              </div>
+            </div>
+
+            <!-- Crop Category Filter -->
+            <div class="form-group">
+              <label class="form-label i18n-text" data-key="cropCategoryLabel">Crop Category Filter</label>
+              <select id="cropCategoryFilter" class="form-select">
+                <option value="ALL">All Categories (Cereals, Vegetables, Oilseeds, Cash, Fruits)</option>
+                <option value="Cereals">Cereals & Grains (Wheat, Rice, Maize, Barley)</option>
+                <option value="Vegetables">Vegetables (Tomato, Potato, Onion, Chili)</option>
+                <option value="Oilseeds">Oilseeds (Mustard, Soybean, Groundnut)</option>
+                <option value="Cash Crops">Cash Crops (Cotton, Sugarcane)</option>
+                <option value="Pulses">Pulses (Chickpea / Gram)</option>
+                <option value="Fruits">Fruits (Apple, Citrus)</option>
+              </select>
+            </div>
+
+            <!-- Specific Crop Selector -->
+            <div class="form-group">
+              <label class="form-label i18n-text" data-key="selectCropLabel">Choose Your Farm Crop:</label>
+              <select id="cropSelector" class="form-select">
+                <!-- Dynamically populated with all crops -->
+              </select>
+            </div>
+
+            <!-- Growth Stage Selector -->
+            <div class="form-group">
+              <label class="form-label i18n-text" data-key="selectStageLabel">Current Growth Stage:</label>
+              <select id="stageSelector" class="form-select">
+                <!-- Dynamically populated based on chosen crop -->
+              </select>
+            </div>
+
+            <button class="btn-primary" id="btnRecalculateAdvisory" style="width: 100%;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m5 3 14 9-14 9V3z"></path>
+              </svg>
+              <span class="i18n-text" data-key="updateAdvisoryBtn">Update ML Harvest Schedule</span>
+            </button>
+          </div>
+
+          <!-- Right: Precision Harvesting Recommendation Card -->
+          <div class="cv-card">
+            <div class="card-header">
+              <div class="card-title">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                </svg>
+                <span class="i18n-text" data-key="harvestScheduleTitle">Machine Learning Climate-Driven Harvesting Advisory</span>
+              </div>
+              <span id="advisoryCropTag" style="font-size: 0.85rem; font-weight: 700; color: var(--emerald-400);">Wheat</span>
+            </div>
+
+            <!-- Real-Time Crop-Specific Severe Alerts for Selected Crop -->
+            <div id="advisoryCropAlerts" style="margin-bottom: 1.25rem;">
+              <!-- Dynamically populated tailored alert for selected crop -->
+            </div>
+
+            <!-- ML Harvesting Suitability & Climate Risk Score Diagnostics -->
+            <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.28); border-radius: 12px; padding: 1rem 1.15rem; margin-bottom: 1.25rem;" id="advisoryMlScoresBox">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem; flex-wrap: wrap; gap: 0.5rem;">
+                <div>
+                  <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 800; color: #15803d;" class="i18n-text" data-key="mlSuitability">
+                    ML Harvest Suitability
+                  </span>
+                  <div style="font-size: 1.7rem; font-weight: 900; color: #14532d; line-height: 1.1; margin-top: 0.15rem;">
+                    <span id="advisorySuitabilityPercent">94%</span>
+                  </div>
+                </div>
+                <div style="text-align: right;">
+                  <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 800; color: #d97706;" class="i18n-text" data-key="climateRisk">
+                    Climate Risk Score
+                  </span>
+                  <div style="font-size: 1.35rem; font-weight: 800; color: #b45309; margin-top: 0.15rem;" id="advisoryRiskScoreDisplay">
+                    <span id="advisoryRiskPercent">6%</span> • <span id="advisoryRiskLevel" style="font-size: 0.9rem;" class="i18n-text" data-key="riskLow">Low Risk</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Dual Progress Meter Bar -->
+              <div style="height: 8px; width: 100%; background: rgba(255, 255, 255, 0.1); border-radius: 9999px; overflow: hidden; margin-bottom: 0.85rem; display: flex;">
+                <div id="advisorySuitabilityBar" style="width: 94%; background: linear-gradient(90deg, #10b981, #34d399); transition: width 0.5s ease;"></div>
+                <div id="advisoryRiskBar" style="width: 6%; background: #f43f5e; transition: width 0.5s ease;"></div>
+              </div>
+
+              <!-- 4-Risk Factor Diagnostics Grid -->
+              <div class="weather-stats-grid" style="grid-template-columns: repeat(4, 1fr); gap: 0.5rem;">
+                <div class="weather-stat-box" style="padding: 0.5rem 0.65rem;">
+                  <div class="stat-label i18n-text" data-key="precipRiskLabel" style="font-size: 0.68rem;">Precipitation Risk</div>
+                  <div class="stat-value" id="advisoryPrecipRisk" style="font-size: 0.95rem; color: var(--accent-cyan);">15%</div>
+                </div>
+                <div class="weather-stat-box" style="padding: 0.5rem 0.65rem;">
+                  <div class="stat-label i18n-text" data-key="windRiskLabel" style="font-size: 0.68rem;">Wind Hazard</div>
+                  <div class="stat-value" id="advisoryWindRisk" style="font-size: 0.95rem;">8%</div>
+                </div>
+                <div class="weather-stat-box" style="padding: 0.5rem 0.65rem;">
+                  <div class="stat-label i18n-text" data-key="soilMoistureRiskLabel" style="font-size: 0.68rem;">Soil Saturation</div>
+                  <div class="stat-value" id="advisorySoilSat" style="font-size: 0.95rem; color: var(--emerald-400);">48%</div>
+                </div>
+                <div class="weather-stat-box" style="padding: 0.5rem 0.65rem;">
+                  <div class="stat-label i18n-text" data-key="diseasePressureLabel" style="font-size: 0.68rem;">Disease Pressure</div>
+                  <div class="stat-value" id="advisoryDiseasePressure" style="font-size: 0.95rem; color: var(--accent-amber);">22%</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Harvest Status Banner -->
+            <div style="padding: 1.25rem; border-radius: 12px; margin-bottom: 1.25rem; background: #f0fdf4; border: 1px solid #bbf7d0;" id="harvestStatusBanner">
+              <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: #15803d;" class="i18n-text" data-key="harvestStatusLabel">
+                Current Field Harvesting Advisory:
+              </div>
+              <div style="font-size: 1.35rem; font-weight: 800; color: #14532d; margin: 0.35rem 0;" id="harvestStatusTitle">
+                Optimal Harvesting Window Active
+              </div>
+              <p style="font-size: 0.85rem; color: #1e293b; line-height: 1.5;" id="harvestStatusReason">
+                Weather conditions over the next 72 hours are completely clear and dry. Optimum wind speed will prevent post-harvest lodging.
+              </p>
+            </div>
+
+            <!-- Parameters Grid -->
+            <div class="weather-stats-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 1.25rem;">
+              <div class="weather-stat-box">
+                <div class="stat-label i18n-text" data-key="idealMoistureStatLabel">Optimum Grain Moisture</div>
+                <div class="stat-value" id="advisoryMoisture" style="color: var(--accent-amber);">12% - 14%</div>
+              </div>
+              <div class="weather-stat-box">
+                <div class="stat-label i18n-text" data-key="minDryDaysLabel">Min Consecutive Dry Days</div>
+                <div class="stat-value" id="advisoryDryDays">3 Days</div>
+              </div>
+              <div class="weather-stat-box">
+                <div class="stat-label i18n-text" data-key="maxHarvestWindLabel">Max Safe Harvest Wind</div>
+                <div class="stat-value" id="advisoryWindLimit">20 km/h</div>
+              </div>
+            </div>
+
+            <!-- Prevalent Diseases & Exact Pesticide Protection Preview -->
+            <div>
+              <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem; color: #14532d;">
+                <span class="i18n-text" data-key="keyDiseasesHeader">Key Diseases & Recommended Protection for</span> <span id="advisoryCropName">Wheat</span>:
+              </h3>
+              <div id="advisoryDiseaseList" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <!-- Injected via JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- PAGE 3: 30-DAY CROP RESULTS & HISTORY                    -->
+      <!-- ======================================================== -->
+      <section id="page-history" class="page-view">
+        <!-- Top Status & Filter Bar -->
+        <div class="cv-card" style="padding: 1.25rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.25rem;">
+                <span class="crop-badge-pill" id="histCropBadge" style="background: #dcfce7; color: #166534; font-weight: 800; padding: 0.25rem 0.65rem; border-radius: 999px; font-size: 0.85rem; border: 1px solid #86efac;">
+                  🌾 Wheat
+                </span>
+                <h2 style="font-size: 1.3rem; font-weight: 800; color: #166534;" class="i18n-text" data-key="historyTitle">
+                  30-Day Agrometeorological Results & Performance
+                </h2>
+              </div>
+              <p style="font-size: 0.85rem; color: #475569;" class="i18n-text" data-key="historySubtitle">
+                Historical daily tracking of climate suitability, precipitation, and thermal stress for the selected crop
+              </p>
+            </div>
+
+            <!-- Controls: Filter Period & Export -->
+            <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+              <div class="history-filter-pills" id="historyFilterGroup">
+                <button class="filter-pill-btn active" data-range="30" id="histFilter30">All 30 Days</button>
+                <button class="filter-pill-btn" data-range="14" id="histFilter14">Last 14 Days</button>
+                <button class="filter-pill-btn" data-range="7" id="histFilter7">Last 7 Days</button>
+              </div>
+              <button class="btn-primary" id="btnExportHistoryCsv" style="padding: 0.5rem 0.95rem; font-size: 0.825rem;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span class="i18n-text" data-key="historyExportCsv">Export 30-Day CSV</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 KPI Stat Cards -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+          <div class="cv-card" style="margin-bottom: 0; padding: 1.25rem; border-top: 4px solid #16a34a;">
+            <div style="font-size: 0.75rem; font-weight: 700; color: #475569; text-transform: uppercase;" class="i18n-text" data-key="historyAvgScore">
+              30-Day Average Suitability
+            </div>
+            <div style="display: flex; align-items: baseline; gap: 0.4rem; margin: 0.35rem 0;">
+              <span style="font-size: 2.2rem; font-weight: 800; color: #15803d;" id="histAvgSuitability">85%</span>
+              <span style="font-size: 0.85rem; color: #16a34a; font-weight: 700;" id="histAvgSuitabilityStatus">Favorable</span>
+            </div>
+            <div class="progress-bar-bg" style="height: 6px; background: #e2e8f0; border-radius: 999px; overflow: hidden;">
+              <div id="histAvgSuitabilityBar" style="height: 100%; width: 85%; background: #16a34a; border-radius: 999px;"></div>
+            </div>
+          </div>
+
+          <div class="cv-card" style="margin-bottom: 0; padding: 1.25rem; border-top: 4px solid #0284c7;">
+            <div style="font-size: 0.75rem; font-weight: 700; color: #475569; text-transform: uppercase;" class="i18n-text" data-key="historyTotalRain">
+              Total Cumulative Rain
+            </div>
+            <div style="display: flex; align-items: baseline; gap: 0.4rem; margin: 0.35rem 0;">
+              <span style="font-size: 2.2rem; font-weight: 800; color: #0369a1;" id="histTotalRain">38.4</span>
+              <span style="font-size: 0.9rem; color: #0284c7; font-weight: 700;">mm</span>
+            </div>
+            <div style="font-size: 0.75rem; color: #64748b;">Recorded precipitation across 30 days</div>
+          </div>
+
+          <div class="cv-card" style="margin-bottom: 0; padding: 1.25rem; border-top: 4px solid #10b981;">
+            <div style="font-size: 0.75rem; font-weight: 700; color: #475569; text-transform: uppercase;" class="i18n-text" data-key="historyFavorableDays">
+              Optimal Weather Days
+            </div>
+            <div style="display: flex; align-items: baseline; gap: 0.4rem; margin: 0.35rem 0;">
+              <span style="font-size: 2.2rem; font-weight: 800; color: #047857;" id="histFavorableDays">23</span>
+              <span style="font-size: 0.9rem; color: #059669; font-weight: 700;">/ 30 Days</span>
+            </div>
+            <div style="font-size: 0.75rem; color: #059669; font-weight: 600;">Suitability ≥ 75% for field activities</div>
+          </div>
+
+          <div class="cv-card" style="margin-bottom: 0; padding: 1.25rem; border-top: 4px solid #f59e0b;">
+            <div style="font-size: 0.75rem; font-weight: 700; color: #475569; text-transform: uppercase;" class="i18n-text" data-key="historyStressDays">
+              Weather Stress Events
+            </div>
+            <div style="display: flex; align-items: baseline; gap: 0.4rem; margin: 0.35rem 0;">
+              <span style="font-size: 2.2rem; font-weight: 800; color: #b45309;" id="histStressDays">3</span>
+              <span style="font-size: 0.9rem; color: #d97706; font-weight: 700;">Incidents</span>
+            </div>
+            <div style="font-size: 0.75rem; color: #b45309;">Rain spikes, heatwaves, or high wind events</div>
+          </div>
+        </div>
+
+        <!-- 30-Day Suitability Trend Graph Bar Visualizer -->
+        <div class="cv-card" style="padding: 1.25rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+            <h3 style="font-size: 1.05rem; font-weight: 800; color: #166534;" class="i18n-text" data-key="historyTimelineChart">
+              30-Day Crop Suitability Trendline
+            </h3>
+            <div style="display: flex; align-items: center; gap: 0.85rem; font-size: 0.75rem; font-weight: 600;">
+              <span style="display: flex; align-items: center; gap: 0.3rem;"><span style="width: 10px; height: 10px; background: #16a34a; border-radius: 2px;"></span> Optimal (≥75%)</span>
+              <span style="display: flex; align-items: center; gap: 0.3rem;"><span style="width: 10px; height: 10px; background: #f59e0b; border-radius: 2px;"></span> Moderate (50-74%)</span>
+              <span style="display: flex; align-items: center; gap: 0.3rem;"><span style="width: 10px; height: 10px; background: #ef4444; border-radius: 2px;"></span> Stress (&lt;50%)</span>
+            </div>
+          </div>
+
+          <div class="history-trend-bars-container" id="historyTrendBars" style="display: flex; align-items: flex-end; gap: 6px; height: 140px; padding: 0.5rem 0; overflow-x: auto;">
+            <!-- Injected dynamically via JS: 30 day vertical bars with tooltips -->
+          </div>
+        </div>
+
+        <!-- 30-Day Detailed Agrometeorological Data Table -->
+        <div class="cv-card" style="padding: 1.25rem;">
+          <h3 style="font-size: 1.05rem; font-weight: 800; color: #166534; margin-bottom: 0.85rem;">
+            Daily Agrometeorological Logs & Crop Impact
+          </h3>
+          <div style="overflow-x: auto;">
+            <table class="history-table" style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem;">
+              <thead>
+                <tr style="background: #f0fdf4; border-bottom: 2px solid #bbf7d0; color: #166534;">
+                  <th style="padding: 0.75rem 0.85rem;">Date & Day</th>
+                  <th style="padding: 0.75rem 0.85rem;">Temp (Max/Min)</th>
+                  <th style="padding: 0.75rem 0.85rem;">Rainfall (mm)</th>
+                  <th style="padding: 0.75rem 0.85rem;">Wind Speed</th>
+                  <th style="padding: 0.75rem 0.85rem;">Soil Moisture</th>
+                  <th style="padding: 0.75rem 0.85rem;">Suitability Score</th>
+                  <th style="padding: 0.75rem 0.85rem;">Canopy Stress / Field Impact</th>
+                </tr>
+              </thead>
+              <tbody id="historyTableBody">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- PAGE 3: AI PICTURE SEARCH (DISEASE, PEST & STAGE)         -->
+      <!-- ======================================================== -->
+      <section id="page-ai-search" class="page-view">
+        <div class="cv-card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                  <circle cx="12" cy="13" r="4"></circle>
+                </svg>
+                <span class="i18n-text" data-key="aiSearchTitle">AI Picture Search: Disease, Pest & Growth Stage Identification</span>
+              </div>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;" class="i18n-text" data-key="aiSearchSubtitle">
+                Upload or snap a photo of any crop leaf or canopy for instant ML disease diagnosis, stage analysis, and exact pesticide recommendations.
+              </p>
+            </div>
+          </div>
+
+          <!-- Quick Test Benchmarks for Farmers & Agronomists -->
+          <div style="background: rgba(16, 185, 129, 0.06); border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem; margin-bottom: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+              <span style="font-size: 0.8rem; font-weight: 700; color: #14532d;" class="i18n-text" data-key="quickTestPhotosLabel">
+                Quick 1-Click Disease Benchmarks (All Crop Varieties)
+              </span>
+              <span style="font-size: 0.72rem; color: var(--emerald-400); font-family: var(--font-mono);">
+                38 Trained Botanical Pathologies
+              </span>
+            </div>
+
+            <!-- Interactive Benchmark Selectors -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 0.75rem; align-items: flex-end; margin-bottom: 0.85rem;">
+              <div>
+                <label class="form-label i18n-text" data-key="selectTestCropLabel" style="margin-bottom: 0.25rem;">Select Crop Benchmark:</label>
+                <select id="benchmarkCropSelect" class="form-select" style="padding: 0.5rem 0.75rem; font-size: 0.85rem;">
+                  <!-- Dynamically populated -->
+                </select>
+              </div>
+              <div>
+                <label class="form-label i18n-text" data-key="selectTestDiseaseLabel" style="margin-bottom: 0.25rem;">Select Disease/Pest Benchmark:</label>
+                <select id="benchmarkDiseaseSelect" class="form-select" style="padding: 0.5rem 0.75rem; font-size: 0.85rem;">
+                  <!-- Dynamically populated based on chosen crop -->
+                </select>
+              </div>
+              <button class="btn-primary" id="btnRunBenchmark" style="padding: 0.55rem 1rem; font-size: 0.825rem; white-space: nowrap;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <span class="i18n-text" data-key="testSampleBtn">Diagnose Selected Benchmark</span>
+              </button>
+            </div>
+
+            <!-- Quick 1-Click Chips Across Various Crops -->
+            <div class="benchmark-chips-wrap" id="benchmarkQuickChips">
+              <!-- Dynamically populated with chips like:
+                   🌾 Wheat Stripe Rust, 🌾 Wheat Karnal Bunt, 🌾 Wheat Aphids,
+                   🍚 Rice Blast, 🍚 Rice Bacterial Blight,
+                   🍅 Tomato Early Blight, 🍅 Tomato Late Blight,
+                   🥔 Potato Late Blight, 🥔 Potato Early Blight,
+                   ☁️ Cotton Pink Bollworm, ☁️ Cotton Aphids,
+                   🌽 Maize Fall Armyworm, 🌼 Mustard White Rust,
+                   🌱 Soybean Rust, 🧅 Onion Purple Blotch, 🎋 Sugarcane Red Rot -->
+            </div>
+          </div>
+
+          <!-- Autonomous Universal AI Vision Status Banner -->
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1rem; padding: 0.85rem 1.15rem; background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%); border-radius: 12px; border: 1.5px solid #bbf7d0; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+            <div style="display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap;">
+              <span style="display: inline-flex; width: 10px; height: 10px; border-radius: 50%; background: #16a34a; box-shadow: 0 0 10px rgba(22, 163, 74, 0.7);"></span>
+              <div>
+                <div style="font-size: 0.9rem; font-weight: 800; color: #14532d;" class="i18n-text" data-key="aiVisionModeTitle">
+                  Autonomous Universal Plant & Fruit Vision Search
+                </div>
+                <div style="font-size: 0.775rem; color: #166534; font-weight: 500;" class="i18n-text" data-key="aiVisionModeDesc">
+                  Independent Search: Upload ANY crop, fruit, vegetable, or plant photo. AI automatically identifies the species, growth stage, pathology, and exact pesticide treatment.
+                </div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; font-weight: 700; color: #166534; background: #ffffff; padding: 0.35rem 0.75rem; border-radius: 8px; border: 1px solid #bbf7d0; box-shadow: 0 1px 2px rgba(0,0,0,0.04);">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                <span class="i18n-text" data-key="aiApiConnectedLabel">Gemini 3.8 Multimodal Vision API Connected</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- Drag and Drop Box & Camera Trigger -->
+          <input type="file" id="aiFileInput" accept="image/*" style="display: none;">
+          <div class="ai-dropzone" id="aiDropzone">
+            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color: var(--emerald-400); margin-bottom: 0.5rem;">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <div style="font-size: 0.95rem; font-weight: 700; color: #166534;" class="i18n-text" data-key="dropzoneText">
+              Upload ANY crop, fruit, or plant photo here, or click to browse / snap photo
+            </div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.35rem;" class="i18n-text" data-key="dropzoneFormatsText">
+              Works for all fruits (Mango, Apple, Citrus, Banana, Grape), vegetables, and field crops. Supports JPG, PNG, WEBP.
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 0.75rem; justify-content: center; margin-bottom: 1.5rem;">
+            <button class="btn-secondary" id="btnTriggerUpload">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              <span class="i18n-text" data-key="browseFileBtn">Upload Image File</span>
+            </button>
+
+            <button class="btn-primary" id="btnAiCameraTrigger">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                <circle cx="12" cy="13" r="4"></circle>
+              </svg>
+              <span class="i18n-text" data-key="snapPhotoBtn">Capture Camera Photo</span>
+            </button>
+          </div>
+
+          <!-- Video live camera element (if triggered) -->
+          <video id="aiCameraVideo" autoplay playsinline muted style="width: 100%; max-width: 480px; margin: 0 auto 1rem; border-radius: 12px; display: none;"></video>
+
+          <!-- Image Preview Canvas -->
+          <div class="preview-canvas-box">
+            <canvas id="aiVisionCanvas" width="480" height="320" style="width: 100%; height: auto; display: block;"></canvas>
+          </div>
+
+          <!-- Real-Time AI Scanning Status Indicator -->
+          <div id="aiScanningIndicator" style="display: none; align-items: center; justify-content: center; gap: 0.75rem; padding: 1rem; margin-bottom: 1rem; background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 12px;">
+            <div style="width: 22px; height: 22px; border: 3px solid #bbf7d0; border-top-color: #15803d; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+            <div style="font-size: 0.875rem; font-weight: 700; color: #14532d;" class="i18n-text" data-key="aiScanningText">
+              Scanning plant image with Gemini 3.8 Multimodal Vision API...
+            </div>
+          </div>
+
+          <!-- AI Model Output Results Card -->
+          <div id="aiOutputCard" style="display: block; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 14px; padding: 1.25rem;">
+            <!-- Header Banner -->
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem; flex-wrap: wrap; gap: 0.75rem;">
+              <div>
+                <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.25rem;">
+                  <span id="resAutonomousTag" style="font-size: 0.7rem; font-weight: 800; padding: 0.2rem 0.55rem; border-radius: 999px; background: #dcfce7; color: #166534; border: 1px solid #86efac; text-transform: uppercase;">
+                    Autonomous AI Discovery
+                  </span>
+                  <span id="resSourceBadge" style="font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.55rem; border-radius: 6px; background: #f8fafc; color: #475569; border: 1px solid #e2e8f0;">
+                    Gemini 3.8 Flash Vision
+                  </span>
+                </div>
+                <div style="font-size: 0.85rem; color: #15803d; font-weight: 700; text-transform: uppercase; margin-top: 0.25rem;">
+                  <span class="i18n-text" data-key="detectedCrop">Identified Plant/Fruit:</span> <span id="resCropName" style="color: #0f172a; font-weight: 800; font-size: 1.05rem;">Wheat</span> &bull;
+                  <span class="i18n-text" data-key="detectedStage">Stage:</span> <span id="resStageName" style="color: #15803d; font-weight: 700;">Grain Filling</span>
+                </div>
+                <h3 style="font-size: 1.35rem; font-weight: 800; color: #14532d; margin-top: 0.35rem;" id="resDiagnosis">
+                  Stripe Rust / Yellow Rust (Puccinia striiformis)
+                </h3>
+              </div>
+              <div style="text-align: right;">
+                <span class="severity-pill sev-severe" id="resSeverity">Severe</span>
+                <div style="font-size: 0.75rem; color: #15803d; font-family: var(--font-mono); margin-top: 0.35rem;">
+                  <span class="i18n-text" data-key="confidenceLabel">Confidence:</span> <b id="resConfidence">97.8%</b>
+                </div>
+              </div>
+            </div>
+
+            <!-- Symptoms -->
+            <div style="margin-bottom: 1rem;">
+              <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #475569; display: block; margin-bottom: 0.35rem;" class="i18n-text" data-key="symptomsLabel">
+                Identified Visual Symptoms:
+              </span>
+              <div id="resSymptomsList" style="font-size: 0.85rem; color: #1e293b;">
+                • Bright yellow to orange pustules arranged in linear stripes parallel to leaf veins.
+              </div>
+            </div>
+
+            <!-- Pesticide & Fungicide Prescription Box -->
+            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 1.15rem; margin-bottom: 1rem;">
+              <h4 style="font-size: 0.95rem; font-weight: 800; color: #14532d; margin-bottom: 0.5rem;" class="i18n-text" data-key="recommendedPesticideLabel">
+                ML-Recommended Chemical Formulation:
+              </h4>
+              <div style="font-size: 1.1rem; font-weight: 700; color: #15803d; margin-bottom: 0.5rem;" id="resPesticideName">
+                Propiconazole 25% EC (Tilt)
+              </div>
+
+              <div class="weather-stats-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 0.75rem;">
+                <div class="weather-stat-box">
+                  <div class="stat-label i18n-text" data-key="dosageAcreLabel">Dosage per Acre</div>
+                  <div class="stat-value" id="resDosageAcre" style="font-size: 0.95rem;">200 ml in 200 L water</div>
+                </div>
+                <div class="weather-stat-box">
+                  <div class="stat-label i18n-text" data-key="dosageLiterLabel">Dosage per Litre</div>
+                  <div class="stat-value" id="resDosageLiter" style="font-size: 0.95rem;">1.0 ml / L</div>
+                </div>
+                <div class="weather-stat-box">
+                  <div class="stat-label i18n-text" data-key="phiLabel">Pre-Harvest Wait</div>
+                  <div class="stat-value" id="resPhiDays" style="font-size: 0.95rem; color: var(--accent-amber);">30 Days</div>
+                </div>
+              </div>
+
+              <div style="font-size: 0.8rem; color: #1e293b; margin-bottom: 0.35rem;">
+                <b class="i18n-text" data-key="bioAlternativeLabel">Organic / Bio-Control Alternative:</b>
+                <span id="resBioOption" style="color: #15803d; font-weight: 600;">Sulfur 80% WP @ 2.5 g/L or Trichoderma viride foliar spray</span>
+              </div>
+
+              <div style="font-size: 0.8rem; color: #1e293b;">
+                <b class="i18n-text" data-key="sprayTimingLabel">Weather-Optimized Spray Timing:</b>
+                <span id="resSprayTiming" style="color: #92400e; font-weight: 600;">Calibrate spray for tomorrow 7:00 AM - 10:00 AM before wind exceeds 12 km/h.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- PAGE 4: DISEASE & PESTICIDE GUIDE                        -->
+      <!-- ======================================================== -->
+      <section id="page-pesticides" class="page-view">
+        <div class="cv-card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <span class="i18n-text" data-key="guideTitle">Comprehensive Crop Disease, Pest & Pesticide Formulary</span>
+              </div>
+            </div>
+
+            <!-- Search input -->
+            <input type="text" id="guideSearchInput" placeholder="Search by crop, disease, pest, or pesticide..." class="form-input" style="width: 300px; padding: 0.5rem 0.85rem;" />
+          </div>
+
+          <!-- Table of Diseases & Formulations -->
+          <div style="overflow-x: auto; border-radius: 10px; border: 1px solid var(--border-color);">
+            <table class="pesticide-table">
+              <thead>
+                <tr>
+                  <th class="i18n-text" data-key="tableColCrop">Crop</th>
+                  <th class="i18n-text" data-key="tableColDisease">Disease / Pest Pathogen</th>
+                  <th class="i18n-text" data-key="tableColSymptoms">Visible Symptoms</th>
+                  <th class="i18n-text" data-key="chemicalFormula">Active Formulation</th>
+                  <th class="i18n-text" data-key="tableColDosage">Dosage per Acre / Liter</th>
+                  <th class="i18n-text" data-key="tableColPhi">Safety PHI</th>
+                  <th class="i18n-text" data-key="tableColOrganic">Organic Option</th>
+                </tr>
+              </thead>
+              <tbody id="pesticideTableBody">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- PAGE 5: PRINTABLE REPORT                                 -->
+      <!-- ======================================================== -->
+      <section id="page-print-report" class="page-view">
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 1rem;" class="no-print">
+          <button class="btn-primary" id="btnExecutePrint">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 6 2 18 2 18 9"></polyline>
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+              <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
+            <span class="i18n-text" data-key="printBtn">Print Field Report / Save PDF</span>
+          </button>
+        </div>
+
+        <!-- Print-Ready Official Sheet -->
+        <div class="printable-sheet" id="printableSheetArea">
+          <div class="print-header-row">
+            <div>
+              <h1 style="font-size: 1.8rem; font-weight: 800; color: #15803d; letter-spacing: -0.02em;">
+                AgroCast
+              </h1>
+              <div style="font-size: 0.9rem; color: #4b5563; font-weight: 600;" class="i18n-text" data-key="printReportTitle">
+                Official Farm Advisory & Weather Field Report
+              </div>
+            </div>
+            <div style="text-align: right; font-size: 0.8rem; color: #374151;">
+              <div><b class="i18n-text" data-key="reportIssued">Issued on:</b> <span id="printDate">2026-10-31</span></div>
+              <div><b class="i18n-text" data-key="reportFarmLocation">Farm Location:</b> <span id="printLocation">Uttar Pradesh (PIN 226001)</span></div>
+              <div><b class="i18n-text" data-key="reportTargetCrop">Monitored Crop:</b> <span id="printCrop">Wheat (Grain Filling Stage)</span></div>
+            </div>
+          </div>
+
+          <!-- Section 1: Weather and Alerts -->
+          <div style="margin-bottom: 1.5rem;">
+            <h3 style="font-size: 1.05rem; font-weight: 700; color: #111827; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.35rem; margin-bottom: 0.65rem;">
+              1. Current Micro-Climate & Severe Weather Alerts
+            </h3>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; text-align: center; margin-bottom: 0.75rem;">
+              <div style="background: #f9fafb; border: 1px solid #e5e7eb; padding: 0.5rem; border-radius: 6px;">
+                <div style="font-size: 0.75rem; color: #6b7280;">Temperature</div>
+                <div style="font-size: 1.15rem; font-weight: 700;" id="printTemp">28°C</div>
+              </div>
+              <div style="background: #f9fafb; border: 1px solid #e5e7eb; padding: 0.5rem; border-radius: 6px;">
+                <div style="font-size: 0.75rem; color: #6b7280;">Humidity</div>
+                <div style="font-size: 1.15rem; font-weight: 700;" id="printHumidity">62%</div>
+              </div>
+              <div style="background: #f9fafb; border: 1px solid #e5e7eb; padding: 0.5rem; border-radius: 6px;">
+                <div style="font-size: 0.75rem; color: #6b7280;">Wind Speed</div>
+                <div style="font-size: 1.15rem; font-weight: 700;" id="printWind">12 km/h</div>
+              </div>
+              <div style="background: #f9fafb; border: 1px solid #e5e7eb; padding: 0.5rem; border-radius: 6px;">
+                <div style="font-size: 0.75rem; color: #6b7280;">Rain Probability</div>
+                <div style="font-size: 1.15rem; font-weight: 700;" id="printRainProb">20%</div>
+              </div>
+            </div>
+
+            <div style="background: #fef3c7; border: 1px solid #f59e0b; padding: 0.75rem; border-radius: 6px; font-size: 0.85rem;" id="printAlertBox">
+              <b>Agronomic Alert:</b> Favorable harvesting conditions. No severe weather hindrances expected in the immediate 48-hour window.
+            </div>
+          </div>
+
+          <!-- Section 2: 7-Day Farm Operational Calendar -->
+          <div style="margin-bottom: 1.5rem;">
+            <h3 style="font-size: 1.05rem; font-weight: 700; color: #111827; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.35rem; margin-bottom: 0.65rem;" class="i18n-text" data-key="reportWeeklySummary">
+              2. 7-Day Farm Operational & Harvesting Calendar
+            </h3>
+            <table class="print-table">
+              <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>Date</th>
+                  <th>Condition</th>
+                  <th>Max/Min Temp</th>
+                  <th>Rain (mm)</th>
+                  <th>Crop Suitability Score</th>
+                </tr>
+              </thead>
+              <tbody id="printSevenDayTable">
+                <!-- Injected via JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Section 3: Prescribed Crop Protection Measures -->
+          <div style="margin-bottom: 1.5rem;">
+            <h3 style="font-size: 1.05rem; font-weight: 700; color: #111827; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.35rem; margin-bottom: 0.65rem;" class="i18n-text" data-key="reportPesticideRx">
+              3. Prescribed Crop Protection & Pesticide Prescription
+            </h3>
+            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 1rem; font-size: 0.875rem;">
+              <div style="margin-bottom: 0.4rem;">
+                <b>Target Crop:</b> <span id="printRxCrop">Wheat</span> | <b>Identified Condition:</b> <span id="printRxDisease">Stripe Rust</span>
+              </div>
+              <div style="margin-bottom: 0.4rem;">
+                <b>Chemical Formulation:</b> <span id="printRxChemical">Propiconazole 25% EC @ 200 ml/acre (1.0 ml/L)</span>
+              </div>
+              <div style="margin-bottom: 0.4rem;">
+                <b>Pre-Harvest Interval (PHI):</b> 30 Days | <b>Safety Wait Period:</b> Strictly observe before harvesting
+              </div>
+              <div>
+                <b>Organic Alternative:</b> Sulfur 80% WP @ 2.5 g/L or Trichoderma viride foliar spray
+              </div>
+            </div>
+          </div>
+
+          <!-- Seal and Signature -->
+          <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 2rem; border-top: 1px solid #e5e7eb; padding-top: 1rem;">
+            <div style="font-size: 0.75rem; color: #6b7280;">
+              Generated via AgroCast Precision Agriculture & Agrometeorological Machine Learning Platform.
+            </div>
+            <div style="text-align: right;">
+              <div style="font-family: serif; font-size: 1.1rem; color: #15803d; font-weight: 700;">Certified Agronomist</div>
+              <div style="font-size: 0.75rem; color: #374151;" class="i18n-text" data-key="reportSignature">Certified Agronomic Weather Advisory Service</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--emerald-400);">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+      <span id="toastMessage">Action completed successfully</span>
+    </div>
+
+    <!-- Application JavaScript -->
+    <script type="module" src="/src/app.js"></script>
+  </body>
+</html>
